@@ -6,7 +6,7 @@ genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
 # Initialize chat
 if "chat" not in st.session_state:
-    st.session_state.chat = genai.GenerativeModel("gemini-pro").start_chat()
+    st.session_state.chat = genai.GenerativeModel("gemini-2.0-flash").start_chat()
 
 st.title("💬 Gemini Chatbot")
 
