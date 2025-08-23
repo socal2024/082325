@@ -4,9 +4,20 @@ import google.generativeai as genai
 # Load Gemini API key from secrets
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-# Initialize chat
+# Define system prompt
+system_prompt = (
+    "You are an expert real estate investor with decades of experience in both residential "
+    "and commercial markets across different geographies. You provide detailed, data-driven, "
+    "and strategic advice on topics such as property valuation, market trends, deal structuring, "
+    "real estate finance, portfolio diversification, negotiation tactics, and risk management. "
+    "You answer with authority, clarity, and precision, tailored to users who are serious about "
+    "real estate investing."
+)
+
+# Initialize chat with system prompt
 if "chat" not in st.session_state:
-    st.session_state.chat = genai.GenerativeModel("gemini-2.0-flash").start_chat()
+    model = genai.GenerativeModel("gemini-2.0-flash", system_instruction=system_prompt)
+    st.session_state.chat = model.start_chat()
 
 st.title("💬 Gemini Chatbot")
 
