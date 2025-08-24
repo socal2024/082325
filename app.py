@@ -42,11 +42,11 @@ if uploaded_file:
         for page in doc:
             text_chunks.append(page.get_text())
     # Save in session so it survives reruns
-    st.session_state.uploaded_pdf_text = "\n".join(text_chunks)
+    st.session_state.user_pdf_text = "\n".join(text_chunks)
     st.markdown("✅ PDF content successfully extracted and will be included in your prompt.")
 
 # Always read from session (empty if none)
-user_pdf_text = st.session_state.get("uploaded_pdf_text", "")
+user_pdf_text = st.session_state.get("user_pdf_text", "")
 
 # Load guidelines and context from Dropbox folder
 dropbox_pdf_text = load_dropbox_pdf_texts(dropbox_folder)
@@ -96,10 +96,10 @@ if user_input:
     )
 
     parts = []
-    if uploaded_pdf_text:
+    if user_pdf_text:
         parts.extend([
             "Use this uploaded, deal-specific PDF text as additional context:",
-            uploaded_pdf_text
+            user_pdf_text
         ])
     parts.append(f"Question:\n{user_input}")
 
