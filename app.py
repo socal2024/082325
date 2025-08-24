@@ -46,7 +46,7 @@ if uploaded_file:
     st.markdown("✅ PDF content successfully extracted and will be included in your prompt.")
 
 # Always read from session (empty if none)
-uploaded_pdf_text = st.session_state.get("uploaded_pdf_text", "")
+user_pdf_text = st.session_state.get("uploaded_pdf_text", "")
 
 # Load guidelines and context from Dropbox folder
 dropbox_pdf_text = load_dropbox_pdf_texts(dropbox_folder)
