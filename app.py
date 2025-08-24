@@ -6,7 +6,7 @@ from io import BytesIO
 
 # Setup Dropbox client using secrets
 dbx = dropbox.Dropbox(st.secrets["DROPBOX_ACCESS_TOKEN"])
-dropbox_folder = st.secrets["DROPBOX_PDF_FOLDER"]  # e.g., "/AI_CONTEXT"
+dropbox_folder = st.secrets["DROPBOX_PDF_FOLDER"]  #082325
 
 # Load Gemini API key from secrets
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
