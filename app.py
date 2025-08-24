@@ -1,8 +1,14 @@
+
 import streamlit as st
 import google.generativeai as genai
 import fitz  # PyMuPDF
 import dropbox
 from io import BytesIO
+import sys
+
+def _dbg(label, value):
+    print(f"{label}: {repr(value)} (len={0 if value is None else len(str(value))})",
+          file=sys.stderr, flush=True)
 
 # Setup Dropbox client using secrets
 dbx = dropbox.Dropbox(st.secrets["DROPBOX_ACCESS_TOKEN"])
