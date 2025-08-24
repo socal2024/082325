@@ -35,13 +35,18 @@ st.title("🏘️ Real Estate Investor Chatbot")
 
 # 🔹🔹 NEW: File uploader for PDF
 uploaded_file = st.file_uploader("Upload a PDF (e.g., property documents, investment memo):", type=["pdf"])
-user_pdf_text = ""
 
 if uploaded_file:
+    text_chunks = []
     with fitz.open(stream=uploaded_file.read(), filetype="pdf") as doc:
         for page in doc:
-            user_pdf_text += page.get_text()
+            text_chunks.append(page.get_text())
+    # Save in session so it survives reruns
+    st.session_state.uploaded_pdf_text = "\n".join(text_chunks)
     st.markdown("✅ PDF content successfully extracted and will be included in your prompt.")
+
+# Always read from session (empty if none)
+uploaded_pdf_text = st.session_state.get("uploaded_pdf_text", "")
 
 # Load guidelines and context from Dropbox folder
 dropbox_pdf_text = load_dropbox_pdf_texts(dropbox_folder)
