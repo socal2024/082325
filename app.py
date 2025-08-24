@@ -48,6 +48,10 @@ if uploaded_file:
 # Always read from session (empty if none)
 user_pdf_text = st.session_state.get("user_pdf_text", "")
 
+if user_pdf_text and len(user_pdf_text) > 200_000:
+    user_pdf_text = user_pdf_text[:200_000]
+    st.warning("PDF text truncated to 200,000 characters to fit model limits.")
+
 # Load guidelines and context from Dropbox folder
 dropbox_pdf_text = load_dropbox_pdf_texts(dropbox_folder)
 
