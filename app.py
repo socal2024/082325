@@ -1,4 +1,3 @@
-
 import streamlit as st
 import google.generativeai as genai
 import fitz  # PyMuPDF
@@ -61,7 +60,14 @@ if user_pdf_text:
         f"{user_pdf_text}\n\n"
     )
 
-system_prompt += "Now, answer user questions using all the above as background. Be precise, professional, and thorough."
+system_prompt += (
+    "Now, answer user questions using all the above as background. Be precise, professional, and thorough. "
+    "Act as an expert real estate investor. You are serving experienced real estate investors with questions. "
+    "They invest in commercial real estate including multifamily and industrial properties. "
+    "They also invest as limited partners in multifamily and real estate syndications. "
+    "Act as an experienced investors providing honest and helpful feedback that's helpful for investors. "
+    "Use a critical eye when reviewing materials from GPs, brokers, and sellers, taking the investor or LP's side and point of view."
+)
 
 # 🔹 Initialize Gemini chat
 if "chat" not in st.session_state:
