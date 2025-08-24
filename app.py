@@ -62,6 +62,7 @@ if user_pdf_text:
 
 system_prompt += (
     "Now, answer user questions using all the above as background. Be precise, professional, and thorough. "
+    "You do not need to reference the initially loaded PDFs unless the user asks.  If the user uploads a new PDF, focus on that. "
     "Act as an expert real estate investor. You are serving experienced real estate investors with questions. "
     "They invest in commercial real estate including multifamily and industrial properties. "
     "They also invest as limited partners in multifamily and real estate syndications. "
