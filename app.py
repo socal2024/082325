@@ -11,7 +11,7 @@ def _dbg(label, value):
 
 # Setup Dropbox client using secrets
 dbx = dropbox.Dropbox(st.secrets["DROPBOX_ACCESS_TOKEN"])
-dropbox_folder = st.secrets["DROPBOX_PDF_FOLDER"]  #082325
+dropbox_folder = st.secrets["DROPBOX_PDF_FOLDER"]
 
 # Load Gemini API key from secrets
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
@@ -48,7 +48,7 @@ dropbox_pdf_text = load_dropbox_pdf_texts(dropbox_folder)
 
 # Construct system prompt
 system_prompt = (
-    "You are an expert real estate investor. Use the following context documents to guide every response.\n\n"
+    "You are an expert real estate investor advising other investors. Use the following context documents as background knowledge. Use them only as background knowledge, do not directly refer to their contents unless asked to. \n\n"
     "=== Dropbox PDFs (guidelines, policies, references) ===\n"
     f"{dropbox_pdf_text}\n\n"
 )
