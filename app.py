@@ -75,15 +75,34 @@ system_prompt += (
     "Use a critical eye when reviewing materials from GPs, brokers, and sellers, taking the investor or LP's side and point of view."
 )
 
-# 🔹 Initialize Gemini chat
-if "chat" not in st.session_state:
-    model = genai.GenerativeModel("gemini-2.0-flash", system_instruction=system_prompt)
-    st.session_state.chat = model.start_chat()
-
 # 🔹 Text input
 user_input = st.text_input("Ask your real estate question:")
 
 if user_input:
-    response = st.session_state.chat.send_message(user_input)
+    base_system_prompt = (
+        "You are an expert real estate investor advising other investors. "
+        "Use the following context documents as background knowledge. "
+        "Use them only as background knowledge; do not directly quote unless asked.\n\n"
+        "=== Dropbox PDFs (guidelines, policies, references) ===\n"
+        f"{dropbox_pdf_text}\n\n"
+        "Now, answer user questions using all the above as background. "
+        "If the user uploads a new PDF, focus on that for deal-specific analysis. "
+        "Be candid, critical, and helpful for experienced investors."
+    )
+
+    model = genai.GenerativeModel(
+        model_name="gemini-2.0-flash",
+        system_instruction=base_system_prompt
+    )
+
+    parts = []
+    if uploaded_pdf_text:
+        parts.extend([
+            "Use this uploaded, deal-specific PDF text as additional context:",
+            uploaded_pdf_text
+        ])
+    parts.append(f"Question:\n{user_input}")
+
+    response = model.generate_content(parts)
     st.markdown(f"**You:** {user_input}")
     st.markdown(f"**Gemini:** {response.text}")
